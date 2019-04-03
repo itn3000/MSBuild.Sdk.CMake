@@ -16,4 +16,7 @@ GENERATE_EXPORT_HEADER( ${project_name}
 )
 
 install(TARGETS ${project_name} DESTINATION bin)
-install(FILES "${PROJECT_BINARY_DIR}/${project_name}.h" DESTINATION include)
+install(FILES 
+    "${PROJECT_SOURCE_DIR}/${project_name}.h" 
+    "${PROJECT_BINARY_DIR}/${project_name}_Export.h" 
+    DESTINATION include)

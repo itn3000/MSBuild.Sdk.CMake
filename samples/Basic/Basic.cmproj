@@ -1,0 +1,5 @@
+<Project Sdk="MSBuild.Sdk.CMake/0.1.0">
+  <PropertyGroup>
+    <CMakeInstallPrefix Condition="'$(CMakeInstallPrefix)' == ''">$(MSBuildProjectDirectory)/../dist</CMakeInstallPrefix>
+  </PropertyGroup>
+</Project>

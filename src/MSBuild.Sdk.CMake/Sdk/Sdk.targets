@@ -1,0 +1,57 @@
+<Project DefaultTargets="Build">
+  <UsingTask TaskName="MakeCMakeDefineTask" AssemblyFile="$(CMakeSdkAssemblyFilePath)"/>
+  <PropertyGroup>
+    <CMakeBuildType Condition="'$(CMakeBuildType)' == '' and '$(Configuration)' == ''">Debug</CMakeBuildType>
+    <CMakeBuildType Condition="'$(CMakeBuildType)' == '' and '$(Configuration)' != ''">$(Configuration)</CMakeBuildType>
+    <CMakePlatform Condition="'$(CMakePlatform)' == '' and '$(Platform)' == ''">default</CMakePlatform>
+    <CMakePlatform Condition="'$(CMakePlatform)' == '' and '$(Platform)' != ''">$(Platform)</CMakePlatform>
+    <CMakeBuildDirectory Condition="'$(CMakeBuildDirectory)' == ''">$([System.IO.Path]::Combine($(MSBuildProjectDirectory),"builddir",$(CMakeBuildType),$(CMAKEPlatform)))</CMakeBuildDirectory>
+  </PropertyGroup>
+
+  <Target Name="MakeCMakeDefines" Returns="$(_DefineArg)">
+    <MakeCMakeDefineTask
+      Defines="@(CMakeDefine)"
+    >
+      <Output TaskParameter="GeneratedDefineArg" 
+        PropertyName="_DefineArg"
+        Condition="'@(CMakeDefine)' != ''"
+        />
+    </MakeCMakeDefineTask>
+  </Target>
+
+  <Target Name="Configure" DependsOnTargets="MakeCMakeDefines">
+    <PropertyGroup>
+      <CMakeInstallPrefixArg Condition="'$(CMakeInstallPrefix)' != ''">-DCMAKE_INSTALL_PREFIX=&quot;$(CMakeInstallPrefix)&quot;</CMakeInstallPrefixArg>
+      <CMakeGeneratorArg Condition="'$(CMakeGenerator)' != ''">-G &quot;$(CMakeGenerator)&quot;</CMakeGeneratorArg>
+      <CMakeBuildTypeArg Condition="'$(CMakeBuildType)' != ''">-DCMAKE_BUILD_TYPE=$(CMakeBuildType)</CMakeBuildTypeArg>
+      <CMakeDefineArg Condition="'$(_DefineArg)' != ''">$(_DefineArg)</CMakeDefineArg>
+    </PropertyGroup>
+    <MakeDir Directories="$(CMakeBuildDirectory)"/>
+    <Exec Command="&quot;$(CMakeExe)&quot; $(CMakeInstallPrefixArg) $(CMakeGeneratorArg) $(CMakeDefineArg) $(CMakeConfigureAdditionalArguments) &quot;$(CMakeRootDirectory)&quot;"
+      WorkingDirectory="$(CMakeBuildDirectory)"
+      StdOutEncoding="$(CMakeOutputEncoding)"
+      StdErrEncoding="$(CMakeOutputEncoding)"
+      />
+  </Target>
+  <Target Name="Build" DependsOnTargets="Configure" 
+    >
+    <Exec Command="&quot;$(CMakeExe)&quot; --build &quot;$(CMakeBuildDirectory)&quot;"/>
+  </Target>
+  <Target Name="BuildClean">
+    <Exec Command="&quot;$(CMakeExe)&quot; --build &quot;$(CMakeBuildDirectory)&quot; --target clean"
+      Condition="Exists($([System.IO.Path]::Combine($(CMakeBuildDirectory),'CMakeCache.txt')))"/>
+  </Target>
+  <Target Name="Clean" DependsOnTargets="BuildClean;ConfigClean">
+  </Target>
+  <Target Name="Rebuild" DependsOnTargets="Clean;Build"/>
+  <Target Name="ConfigClean">
+    <Delete Files="$([System.IO.Path]::Combine($(CMakeBuildDirectory),'CMakeCache.txt'))"/>
+  </Target>
+  <Target Name="AllClean">
+    <RemoveDir Directories="$(CMakeBuildDirectory)"/>
+  </Target>
+  <Target Name="ExecuteTarget" DependsOnTargets="Configure">
+    <Error Condition="'$(CMakeTarget)' == ''" Text="you must set CMakeTarget property"/>
+    <Exec Command="&quot;$(CMakeExe)&quot; --build &quot;$(CMakeBuildDirectory)&quot; --target &quot;$(CMakeTarget)&quot;"/>
+  </Target>
+</Project>

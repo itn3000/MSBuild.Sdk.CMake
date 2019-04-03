@@ -1,0 +1,23 @@
+<Project>
+  <ItemDefinitionGroup>
+    <!-- definitions for cmake configure(-D[ItemSpec]=[Value]) -->
+    <CMakeDefine>
+      <Value></Value>
+    </CMakeDefine>
+  </ItemDefinitionGroup>
+  <PropertyGroup>
+    <!-- path to cmake executable file -->
+    <CMakeExe Condition="'$(CMakeExe)' == ''">cmake</CMakeExe>
+    <!-- name of cmake generator name('-G' option) -->
+    <CMakeGenerator Condition="'$(CMakeGenerator)' == ''"></CMakeGenerator>
+    <!-- install prefix of cmake 'install' target('-DCMAKE_INSTALL_PREFIX=...') -->
+    <CMakeInstallPrefix Condition="'$(CMakeInstallPrefix)' == ''"></CMakeInstallPrefix>
+    <!-- path to cmake project directory(containing CMakeLists.txt) -->
+    <CMakeRootDirectory Condition="'$(CMakeRootDirectory)' == ''">$(MSBuildProjectDirectory.TrimEnd('\'))</CMakeRootDirectory>
+    <!-- additional arguments passed to cmake configure -->
+    <CMakeConfigureAdditionalArguments Condition="'$(CMakeConfigureAdditionalArguments)' == ''"></CMakeConfigureAdditionalArguments>
+  </PropertyGroup>
+  <PropertyGroup>
+    <CMakeSdkAssemblyFilePath>$([System.IO.Path]::Combine($(MSBuildThisFileDirectory),"..","lib","netstandard2.0","MSBuild.Sdk.CMake.dll"))</CMakeSdkAssemblyFilePath>
+  </PropertyGroup>
+</Project>

@@ -1,0 +1,7 @@
+[*.{props,targets,xml,cmproj}]
+indent_size = 2
+indent_style = space
+
+[*.cs]
+indent_size = 4
+indent_style = space

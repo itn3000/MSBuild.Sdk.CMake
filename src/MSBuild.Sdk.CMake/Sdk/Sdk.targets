@@ -26,9 +26,10 @@
       <CMakeGeneratorArg Condition="'$(CMakeGenerator)' != ''">-G &quot;$(CMakeGenerator)&quot;</CMakeGeneratorArg>
       <CMakeBuildTypeArg Condition="'$(CMakeBuildType)' != ''">-DCMAKE_BUILD_TYPE=$(CMakeBuildType)</CMakeBuildTypeArg>
       <CMakeDefineArg Condition="'$(_DefineArg)' != ''">$(_DefineArg)</CMakeDefineArg>
+      <CMakePlatformArg Condition="'$(CMakePlatform)' != '' and '$(CMakePlatform)' != 'default'">-A $(CMakePlatform)</CMakePlatformArg>
     </PropertyGroup>
     <MakeDir Directories="$(CMakeBuildDirectory)"/>
-    <Exec Command="&quot;$(CMakeExe)&quot; $(CMakeInstallPrefixArg) $(CMakeGeneratorArg) $(CMakeDefineArg) $(CMakeBuildTypeArg) $(CMakeConfigureAdditionalArguments) &quot;$(CMakeRootDirectory)&quot;"
+    <Exec Command="&quot;$(CMakeExe)&quot; $(CMakeInstallPrefixArg) $(CMakeGeneratorArg) $(CMakeDefineArg) $(CMakeBuildTypeArg) $(CMakeConfigureAdditionalArguments) $(CMakePlatformArg) &quot;$(CMakeRootDirectory)&quot;"
       WorkingDirectory="$(CMakeBuildDirectory)"
       StdOutEncoding="$(CMakeOutputEncoding)"
       StdErrEncoding="$(CMakeOutputEncoding)"
@@ -54,5 +55,8 @@
   <Target Name="ExecuteTarget" DependsOnTargets="Configure">
     <Error Condition="'$(CMakeTarget)' == ''" Text="you must set CMakeTarget property"/>
     <Exec Command="&quot;$(CMakeExe)&quot; --build &quot;$(CMakeBuildDirectory)&quot; --target &quot;$(CMakeTarget)&quot;"/>
+  </Target>
+  <Target Name="Install" DependsOnTargets="Configure;Build">
+    <Exec Command="&quot;$(CMakeExe)&quot; --build &quot;$(CMakeBuildDirectory)&quot; --target install"/>
   </Target>
 </Project>

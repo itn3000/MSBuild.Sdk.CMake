@@ -24,7 +24,8 @@
     <CMakeBuildType Condition="'$(CMakeBuildType)' == '' and '$(Configuration)' == ''">Debug</CMakeBuildType>
     <!-- build root directory,actual build directory is $(CMakeBuildRootDirectory)/$(CMakeBuildType)/$(CMakePlatform) -->
     <!-- default is $(MSBuildProjectDirectory)/builddir -->
-    <CMakeBuildRootDirectory Condition="'$(CMakeBuildRootDirectory)' == ''"></CMakeBuildRootDirectory>
+    <CMakeBuildRootDirectory Condition="'$(CMakeBuildRootDirectory)' == ''">$([System.IO.Path]::Combine($(MSBuildProjectDirectory),"builddir"))</CMakeBuildRootDirectory>
+    <CMakeBuildDirectory Condition="'$(CMakeBuildDirectory)' == ''">$([System.IO.Path]::Combine($(CMakeBuildRootDirectory),$(CMakeBuildType),$(CMakePlatform)))</CMakeBuildDirectory>
   </PropertyGroup>
   <PropertyGroup>
     <CMakeSdkAssemblyFilePath>$([System.IO.Path]::Combine($(MSBuildThisFileDirectory),"..","lib","netstandard2.0","MSBuild.Sdk.CMake.dll"))</CMakeSdkAssemblyFilePath>

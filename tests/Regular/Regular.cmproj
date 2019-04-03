@@ -3,5 +3,8 @@
   <PropertyGroup>
       <CMakeSdkAssemblyFilePath>$([System.IO.Path]::Combine($(MSBuildThisFileDirectory),"..","..","src","MSBuild.Sdk.CMake","bin","Debug","netstandard2.0","MSBuild.Sdk.CMake.dll"))</CMakeSdkAssemblyFilePath>
   </PropertyGroup>
+  <PropertyGroup>
+    <CMakeGenerator>Visual Studio 16 2019</CMakeGenerator>
+  </PropertyGroup>
   <Import Project="../../src/MSBuild.Sdk.CMake/Sdk/Sdk.targets" />
 </Project>

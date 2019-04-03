@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>MSBuild.Sdk.CMake.ProjectTemplate</id>
+    <version>0.1.0</version>
+    <authors>yusuke</authors>
+    <owners>yusuke</owners>
+    <projectUrl>http://github.com/itn3000/MSBuild.Sdk.CMake</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Template package for MSBuild.Sdk.CMake</description>
+    <releaseNotes>first release</releaseNotes>
+    <copyright>Copyright 2019 itn3000</copyright>
+    <tags>msbuild sdk cmake</tags>
+    <packageTypes>
+      <packageType name="Template"/>
+    </packageTypes>
+  </metadata>
+</package>

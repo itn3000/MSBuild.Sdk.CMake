@@ -1,0 +1,5 @@
+<Project Sdk="MSBuild.Sdk.CMake/0.1.0">
+  <PropertyGroup>
+    <CMakeBuildType Condition="'$(Configuration)' == 'Release'">RelWithDebInfo</CMakeBuildType>
+  </PropertyGroup>
+</Project>

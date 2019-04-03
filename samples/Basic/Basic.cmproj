@@ -2,4 +2,7 @@
   <PropertyGroup>
     <CMakeInstallPrefix Condition="'$(CMakeInstallPrefix)' == ''">$(MSBuildProjectDirectory)/../dist</CMakeInstallPrefix>
   </PropertyGroup>
+  <Target Name="Install">
+    <MSBuild Projects="$(MSBuildThisFileFullPath)" Targets="ExecuteTarget" Properties="CMakeTarget=install"/>
+  </Target>
 </Project>

@@ -5,7 +5,8 @@
     <CMakeBuildType Condition="'$(CMakeBuildType)' == '' and '$(Configuration)' != ''">$(Configuration)</CMakeBuildType>
     <CMakePlatform Condition="'$(CMakePlatform)' == '' and '$(Platform)' == ''">default</CMakePlatform>
     <CMakePlatform Condition="'$(CMakePlatform)' == '' and '$(Platform)' != ''">$(Platform)</CMakePlatform>
-    <CMakeBuildDirectory Condition="'$(CMakeBuildDirectory)' == ''">$([System.IO.Path]::Combine($(MSBuildProjectDirectory),"builddir",$(CMakeBuildType),$(CMAKEPlatform)))</CMakeBuildDirectory>
+    <CMakeBuildRootDirectory Condition="'$(CMakeBuildRootDirectory)' == ''">$([System.IO.Path]::Combine($(MSBuildProjectDirectory),"builddir"))</CMakeBuildRootDirectory>
+    <CMakeBuildDirectory Condition="'$(CMakeBuildDirectory)' == ''">$([System.IO.Path]::Combine($(CMakeBuildRootDirectory),$(CMakeBuildType),$(CMakePlatform)))</CMakeBuildDirectory>
   </PropertyGroup>
 
   <Target Name="MakeCMakeDefines" Returns="$(_DefineArg)">
@@ -27,7 +28,7 @@
       <CMakeDefineArg Condition="'$(_DefineArg)' != ''">$(_DefineArg)</CMakeDefineArg>
     </PropertyGroup>
     <MakeDir Directories="$(CMakeBuildDirectory)"/>
-    <Exec Command="&quot;$(CMakeExe)&quot; $(CMakeInstallPrefixArg) $(CMakeGeneratorArg) $(CMakeDefineArg) $(CMakeConfigureAdditionalArguments) &quot;$(CMakeRootDirectory)&quot;"
+    <Exec Command="&quot;$(CMakeExe)&quot; $(CMakeInstallPrefixArg) $(CMakeGeneratorArg) $(CMakeDefineArg) $(CMakeBuildTypeArg) $(CMakeConfigureAdditionalArguments) &quot;$(CMakeRootDirectory)&quot;"
       WorkingDirectory="$(CMakeBuildDirectory)"
       StdOutEncoding="$(CMakeOutputEncoding)"
       StdErrEncoding="$(CMakeOutputEncoding)"
@@ -35,7 +36,7 @@
   </Target>
   <Target Name="Build" DependsOnTargets="Configure" 
     >
-    <Exec Command="&quot;$(CMakeExe)&quot; --build &quot;$(CMakeBuildDirectory)&quot;"/>
+    <Exec Command="&quot;$(CMakeExe)&quot; --build &quot;$(CMakeBuildDirectory)&quot; --config $(CMakeBuildType)"/>
   </Target>
   <Target Name="BuildClean">
     <Exec Command="&quot;$(CMakeExe)&quot; --build &quot;$(CMakeBuildDirectory)&quot; --target clean"

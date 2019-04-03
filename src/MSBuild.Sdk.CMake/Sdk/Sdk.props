@@ -16,6 +16,15 @@
     <CMakeRootDirectory Condition="'$(CMakeRootDirectory)' == ''">$(MSBuildProjectDirectory.TrimEnd('\'))</CMakeRootDirectory>
     <!-- additional arguments passed to cmake configure -->
     <CMakeConfigureAdditionalArguments Condition="'$(CMakeConfigureAdditionalArguments)' == ''"></CMakeConfigureAdditionalArguments>
+    <!-- platform value, default is $(Platform),or 'default' if $(Platform) is not defined-->
+    <CMakePlatform Condition="'$(CMakePlatform)' == '' and '$(Platform)' != ''">$(Platform)</CMakePlatform>
+    <CMakePlatform Condition="'$(CMakePlatform)' == '' and '$(Platform)' == ''">default</CMakePlatform>
+    <!-- cmake build type, default is same as $(Configuration),or 'Debug' if $(Configuration) is not defined -->
+    <CMakeBuildType Condition="'$(CMakeBuildType)' == '' and '$(Configuration)' != ''">$(Configuration)</CMakeBuildType>
+    <CMakeBuildType Condition="'$(CMakeBuildType)' == '' and '$(Configuration)' == ''">Debug</CMakeBuildType>
+    <!-- build root directory,actual build directory is $(CMakeBuildRootDirectory)/$(CMakeBuildType)/$(CMakePlatform) -->
+    <!-- default is $(MSBuildProjectDirectory)/builddir -->
+    <CMakeBuildRootDirectory Condition="'$(CMakeBuildRootDirectory)' == ''"></CMakeBuildRootDirectory>
   </PropertyGroup>
   <PropertyGroup>
     <CMakeSdkAssemblyFilePath>$([System.IO.Path]::Combine($(MSBuildThisFileDirectory),"..","lib","netstandard2.0","MSBuild.Sdk.CMake.dll"))</CMakeSdkAssemblyFilePath>

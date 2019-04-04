@@ -18,7 +18,6 @@ GENERATE_EXPORT_HEADER( ${project_name}
 )
 
 add_definitions(-D${project_name}_EXPORTS)
-message("${LIB_TYPE}")
 install(TARGETS ${project_name} ${project_name}_static
 	RUNTIME DESTINATION bin
 	LIBRARY DESTINATION lib

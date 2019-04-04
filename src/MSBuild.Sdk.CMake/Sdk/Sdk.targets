@@ -3,10 +3,11 @@
   <PropertyGroup>
     <CMakeBuildType Condition="'$(CMakeBuildType)' == '' and '$(Configuration)' == ''">Debug</CMakeBuildType>
     <CMakeBuildType Condition="'$(CMakeBuildType)' == '' and '$(Configuration)' != ''">$(Configuration)</CMakeBuildType>
-    <CMakePlatform Condition="'$(CMakePlatform)' == '' and '$(Platform)' == ''">default</CMakePlatform>
+    <CMakePlatform Condition="'$(CMakePlatform)' == '' and '$(Platform)' == ''">any</CMakePlatform>
     <CMakePlatform Condition="'$(CMakePlatform)' == '' and '$(Platform)' != ''">$(Platform)</CMakePlatform>
-    <CMakeBuildRootDirectory Condition="'$(CMakeBuildRootDirectory)' == ''">$([System.IO.Path]::Combine($(MSBuildProjectDirectory),"builddir"))</CMakeBuildRootDirectory>
-    <CMakeBuildDirectory Condition="'$(CMakeBuildDirectory)' == ''">$([System.IO.Path]::Combine($(CMakeBuildRootDirectory),$(CMakeBuildType),$(CMakePlatform)))</CMakeBuildDirectory>
+    <_CMakeBuildRootDirectory Condition="'$(CMakeBuildRootDirectory)' != ''">$(CMakeBuildRootDirectory)</_CMakeBuildRootDirectory>
+    <_CMakeBuildRootDirectory Condition="'$(CMakeBuildRootDirectory)' == ''">$(DefaultCMakeBuildRootDirectory)</_CMakeBuildRootDirectory>
+    <CMakeBuildDirectory Condition="'$(CMakeBuildDirectory)' == ''">$([System.IO.Path]::Combine($(_CMakeBuildRootDirectory),$(CMakeBuildType),$(CMakePlatform)))</CMakeBuildDirectory>
   </PropertyGroup>
 
   <Target Name="MakeCMakeDefines" Returns="$(_DefineArg)">
@@ -26,7 +27,7 @@
       <CMakeGeneratorArg Condition="'$(CMakeGenerator)' != ''">-G &quot;$(CMakeGenerator)&quot;</CMakeGeneratorArg>
       <CMakeBuildTypeArg Condition="'$(CMakeBuildType)' != ''">-DCMAKE_BUILD_TYPE=$(CMakeBuildType)</CMakeBuildTypeArg>
       <CMakeDefineArg Condition="'$(_DefineArg)' != ''">$(_DefineArg)</CMakeDefineArg>
-      <CMakePlatformArg Condition="'$(CMakePlatform)' != '' and '$(CMakePlatform)' != 'default'">-A $(CMakePlatform)</CMakePlatformArg>
+      <CMakePlatformArg Condition="'$(CMakePlatform)' != '' and '$(CMakePlatform)' != 'any'">-A $(CMakePlatform)</CMakePlatformArg>
     </PropertyGroup>
     <MakeDir Directories="$(CMakeBuildDirectory)"/>
     <Exec Command="&quot;$(CMakeExe)&quot; $(CMakeInstallPrefixArg) $(CMakeGeneratorArg) $(CMakeDefineArg) $(CMakeBuildTypeArg) $(CMakeConfigureAdditionalArguments) $(CMakePlatformArg) &quot;$(CMakeRootDirectory)&quot;"

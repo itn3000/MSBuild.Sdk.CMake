@@ -6,6 +6,7 @@
     </CMakeDefine>
   </ItemDefinitionGroup>
   <PropertyGroup>
+    <!-- public properties -->
     <!-- path to cmake executable file -->
     <CMakeExe Condition="'$(CMakeExe)' == ''">cmake</CMakeExe>
     <!-- name of cmake generator name('-G' option) -->
@@ -16,16 +17,18 @@
     <CMakeRootDirectory Condition="'$(CMakeRootDirectory)' == ''">$(MSBuildProjectDirectory.TrimEnd('\'))</CMakeRootDirectory>
     <!-- additional arguments passed to cmake configure -->
     <CMakeConfigureAdditionalArguments Condition="'$(CMakeConfigureAdditionalArguments)' == ''"></CMakeConfigureAdditionalArguments>
-    <!-- platform value, default is $(Platform),or 'default' if $(Platform) is not defined-->
+    <!-- platform value, default is $(Platform),or 'any' will be set on task execution if both $(Platform) and $(CMakePlatform) is not defined -->
     <CMakePlatform Condition="'$(CMakePlatform)' == '' and '$(Platform)' != ''">$(Platform)</CMakePlatform>
-    <CMakePlatform Condition="'$(CMakePlatform)' == '' and '$(Platform)' == ''">default</CMakePlatform>
+    <CMakePlatform Condition="'$(CMakePlatform)' == '' and '$(Platform)' == ''"></CMakePlatform>
     <!-- cmake build type, default is same as $(Configuration),or 'Debug' if $(Configuration) is not defined -->
     <CMakeBuildType Condition="'$(CMakeBuildType)' == '' and '$(Configuration)' != ''">$(Configuration)</CMakeBuildType>
     <CMakeBuildType Condition="'$(CMakeBuildType)' == '' and '$(Configuration)' == ''">Debug</CMakeBuildType>
-    <!-- build root directory,actual build directory is $(CMakeBuildRootDirectory)/$(CMakeBuildType)/$(CMakePlatform) -->
+    <!-- build root directory -->
     <!-- default is $(MSBuildProjectDirectory)/builddir -->
     <CMakeBuildRootDirectory Condition="'$(CMakeBuildRootDirectory)' == ''">$([System.IO.Path]::Combine($(MSBuildProjectDirectory),"builddir"))</CMakeBuildRootDirectory>
-    <CMakeBuildDirectory Condition="'$(CMakeBuildDirectory)' == ''">$([System.IO.Path]::Combine($(CMakeBuildRootDirectory),$(CMakeBuildType),$(CMakePlatform)))</CMakeBuildDirectory>
+    <!-- actual build directory, $(CMakeBuildRootDirectory)/$(CMakeBuildType)/$(CMakePlatform) will be set on task execution if empty -->
+    <CMakeBuildDirectory Condition="'$(CMakeBuildDirectory)' == ''"></CMakeBuildDirectory>
+    <DefaultCMakeBuildRootDirectory>$([System.IO.Path]::Combine($(MSBuildProjectDirectory),"builddir"))</DefaultCMakeBuildRootDirectory>
   </PropertyGroup>
   <PropertyGroup>
     <CMakeSdkAssemblyFilePath>$([System.IO.Path]::Combine($(MSBuildThisFileDirectory),"..","lib","netstandard2.0","MSBuild.Sdk.CMake.dll"))</CMakeSdkAssemblyFilePath>

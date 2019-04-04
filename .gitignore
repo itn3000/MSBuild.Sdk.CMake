@@ -348,3 +348,4 @@ dist/
 nupkg/
 nuget-packages/
 .vscode/
+sandbox/

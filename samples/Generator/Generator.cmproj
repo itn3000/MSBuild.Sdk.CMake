@@ -1,6 +1,6 @@
 <Project Sdk="MSBuild.Sdk.CMake/0.1.0">
   <PropertyGroup>
     <CMakeGenerator Condition="'$(Platform)' == 'x64'">Visual Studio 15 2017 Win64</CMakeGenerator>
-    <CMakeGenerator Condition="'$(Platform)' != 'x64'">Visual Studio 15 2017 Win64</CMakeGenerator>
+    <CMakeGenerator Condition="'$(Platform)' != 'x64'">Visual Studio 15 2017</CMakeGenerator>
   </PropertyGroup>
 </Project>

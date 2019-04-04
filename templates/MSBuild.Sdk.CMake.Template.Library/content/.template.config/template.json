@@ -9,5 +9,6 @@
     ],
     "identity": "MSBuild.Sdk.CMake.Template.Library",
     "groupIdentity": "MSBuild.Sdk.CMake.Template",
-    "sourceName": "cmakeproject"
+    "sourceName": "cmakeproject",
+    "preferNameDirectory": true
 }

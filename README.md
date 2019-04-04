@@ -22,7 +22,7 @@ This is the [MSBuild SDK](https://docs.microsoft.com/en-us/visualstudio/msbuild/
 3. execute `dotnet build [project file]`
     * if you want to get release build, `dotnet build -c Release [project file]`
 
-Then you will get built binary in `/dir/to/project/builddir/[Configuration]/[Platform(default is 'default')]/[Configuration]`
+Then you will get built binary in `/dir/to/project/builddir/[Configuration]/[Platform(default is 'any')]/[Configuration]`
 
 ## configure only
 
@@ -90,3 +90,7 @@ build platform, default using msbuild's `$(Platform)` value, or `default` if not
 ### CMakeBuildType
 
 build configuration, default using msbuild's `$(Configuration)` value
+
+### CMakeInstallPrefix
+
+the value passed as CMAKE_INSTALL_PREFIX when configure task.

@@ -1,0 +1,14 @@
+<Project Sdk="MSBuild.SolutionSdk/0.1.0">
+    <PropertyGroup>
+        <EnableDefaultProjectItems>false</EnableDefaultProjectItems>
+    </PropertyGroup>
+    <ItemGroup>
+        <Project Include="src/**/*.csproj"/>
+    </ItemGroup>
+    <Target Name="Pack">
+        <MSBuild Projects="@(Project)" 
+            Targets="Build;Pack"
+            Properties="Configuration=$(Configuration);Platform=$(Platform)"
+            />
+    </Target>
+</Project>

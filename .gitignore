@@ -349,3 +349,4 @@ nupkg/
 nuget-packages/
 .vscode/
 sandbox/
+*.sln

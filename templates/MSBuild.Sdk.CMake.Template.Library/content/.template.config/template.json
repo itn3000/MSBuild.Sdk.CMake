@@ -1,0 +1,13 @@
+{
+    "$schema": "http://json.schemastore.org/template",
+    "author": "Itn3000",
+    "description": "library template for MSBuild.Sdk.CMake",
+    "name": "MSBuild.Sdk.CMake.Template.Library",
+    "shortName": "cmlib",
+    "classifications": [
+        "CMake","Library","CPP"
+    ],
+    "identity": "MSBuild.Sdk.CMake.Template.Library",
+    "groupIdentity": "MSBuild.Sdk.CMake.Template",
+    "sourceName": "cmakeproject"
+}

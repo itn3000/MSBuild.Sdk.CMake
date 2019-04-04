@@ -1,5 +1,5 @@
 #pragma once
 
-#include <cmakeproject_Export.h>
+#include <cmakeproject_export.h>
 
 cmakeproject_EXPORT int f1();

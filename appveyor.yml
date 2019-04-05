@@ -6,12 +6,14 @@ image:
   - Visual Studio 2017
   - Ubuntu1804
 install:
-  pwsh: dotnet tool install -g Cake.Tool
+  pwsh: dotnet tool install -g Cake.Tool --add-source https://api.nuget.org/v3/index.json
 build_script:
   pwsh: dotnet-cake .\build.cake --configuration=Release
 artifacts:
   - path: "nupkg/*.nupkg"
     name: NuGetPackages
+    on:
+      APPVEYOR_BUILD_WORKER_IMAGE: "Visual Studio 2017"
 nuget:
   project_feed: true
 deploy:

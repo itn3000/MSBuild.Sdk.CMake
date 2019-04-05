@@ -12,8 +12,6 @@ build_script:
 artifacts:
   - path: "nupkg/*.nupkg"
     name: NuGetPackages
-    on:
-      APPVEYOR_BUILD_WORKER_IMAGE: "Visual Studio 2017"
 nuget:
   project_feed: true
 deploy:
@@ -23,6 +21,7 @@ deploy:
   on:
     APPVEYOR_REPO_TAG: true
     branch: master
+    APPVEYOR_BUILD_WORKER_IMAGE: "Visual Studio 2017"
   artifact: NuGetPackages
 - provider: GitHub
   auth_token:
@@ -30,6 +29,7 @@ deploy:
   on:
     APPVEYOR_REPO_TAG: true
     branch: master
+    APPVEYOR_BUILD_WORKER_IMAGE: "Visual Studio 2017"
   artifact: NuGetPackages
   prerelease: false
   draft: true

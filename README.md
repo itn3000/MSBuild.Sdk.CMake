@@ -1,5 +1,7 @@
 # MSBuild helper for CMake project
 
+[![Build status](https://ci.appveyor.com/api/projects/status/8mg77qa079jkia26/branch/master?svg=true)](https://ci.appveyor.com/project/itn3000/msbuild-sdk-cmake/branch/master)
+
 This is the [MSBuild SDK](https://docs.microsoft.com/en-us/visualstudio/msbuild/how-to-use-project-sdk?view=vs-2019) which does configure,build,and other task for [CMake](https://cmake.org) project.
 
 # How to use

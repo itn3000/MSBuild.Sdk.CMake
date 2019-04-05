@@ -4,7 +4,7 @@ init:
 configuration: Release
 image: 
   - Visual Studio 2017
-  - Ubuntu 18.04 LTS
+  - Ubuntu1804
 install:
   pwsh: dotnet tool install -g Cake.Tool
 build_script:

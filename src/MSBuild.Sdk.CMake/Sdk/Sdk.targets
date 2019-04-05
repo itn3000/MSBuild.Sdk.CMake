@@ -42,7 +42,7 @@
   </Target>
   <Target Name="BuildClean">
     <Exec Command="&quot;$(CMakeExe)&quot; --build &quot;$(CMakeBuildDirectory)&quot; --target clean"
-      Condition="Exists($([System.IO.Path]::Combine($(CMakeBuildDirectory),'CMakeCache.txt')))"/>
+      Condition="Exists($([System.IO.Path]::Combine($(CMakeBuildDirectory),'cmake_install.cmake')))"/>
   </Target>
   <Target Name="Clean" DependsOnTargets="BuildClean;ConfigClean">
   </Target>

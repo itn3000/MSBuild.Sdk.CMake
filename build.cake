@@ -3,50 +3,37 @@ var target = Argument("Target", "Default");
 
 Task("Default")
     .IsDependentOn("Build")
+    .IsDependentOn("Test")
+    .IsDependentOn("Pack")
     ;
 Task("Restore")
     .Does(() =>
     {
-        MSBuild("MSBuild.Sdk.CMake.slnproj", setting =>
-        {
-            setting.SetConfiguration(configuration)
-                .SetVerbosity(Verbosity.Normal)
-                .WithTarget("Restore")
-                ;
-        });
+        DotNetCoreRestore("MSBuild.Sdk.CMake.slnproj");
     });
 Task("Build")
     .IsDependentOn("Restore")
     .Does(() =>
     {
-        MSBuild("MSBuild.Sdk.CMake.slnproj", setting =>
-        {
-            setting.SetConfiguration(configuration)
-                .SetVerbosity(Verbosity.Normal)
-                .WithTarget("Build")
-                ;
-        });
+        DotNetCoreBuild("MSBuild.Sdk.CMake.slnproj");
     });
 Task("Test")
     .IsDependentOn("Build")
     .Does(() =>
     {
-        var regularProjectDir = DirectoryPath.FromString("tests").Combine("Regular");
-        var projectFilePath = regularProjectDir.CombineWithFilePath("Regular.cmproj");
-        DotNetCoreClean(projectFilePath.ToString());
-        DotNetCoreBuild(projectFilePath.ToString());
+        foreach(var projectName in new []{ "Install", "Regular" })
+        {
+            var regularProjectDir = DirectoryPath.FromString("tests").Combine(projectName);
+            var projectFilePath = regularProjectDir.CombineWithFilePath($"{projectName}.cmproj");
+            DotNetCoreClean(projectFilePath.ToString());
+            DotNetCoreBuild(projectFilePath.ToString());
+        }
     });
 Task("Pack")
     .IsDependentOn("Build")
     .Does(() =>
     {
-        MSBuild("MSBuild.Sdk.CMake.slnproj", setting =>
-        {
-            setting.SetConfiguration(configuration)
-                .SetVerbosity(Verbosity.Normal)
-                .WithTarget("Pack")
-                ;
-        });
+        DotNetCorePack("MSBuild.Sdk.CMake.slnproj");
         foreach(var pkgname in new []{ "MSBuild.Sdk.CMake.Template.Console", "MSBuild.Sdk.CMake.Template.Library" })
         {
             string processName;

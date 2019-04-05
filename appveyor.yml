@@ -1,0 +1,33 @@
+version: 1.0.{build}
+init:
+  - git config --global core.autocrlf input
+configuration: Release
+image: 
+  - Visual Studio 2017
+  - Ubuntu 18.04 LTS
+install:
+  pwsh: dotnet tool install -g Cake.Tool
+build_script:
+  pwsh: dotnet-cake .\build.cake --configuration=Release
+artifacts:
+  - path: "nupkg/*.nupkg"
+    name: NuGetPackages
+nuget:
+  project_feed: true
+deploy:
+- provider: NuGet
+  api_key:
+    secure: +X6X8wXYoeSk6FdqmxnFHfcq9XI0rjvX+LHDoW6pd+Xf7X7GqpEovk6lTLt5fRFZ
+  on:
+    APPVEYOR_REPO_TAG: true
+    branch: master
+  artifact: NuGetPackages
+- provider: GitHub
+  auth_token:
+    secure: MFZg3Ryx8cZ9XWIf8qvSE+48pmQc2LPAcPiRQ7bUtPRKj4mXvn+mtZVzPV7tQyX1
+  on:
+    APPVEYOR_REPO_TAG: true
+    branch: master
+  artifact: NuGetPackages
+  prerelease: false
+  draft: true

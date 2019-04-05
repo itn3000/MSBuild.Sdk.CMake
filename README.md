@@ -7,7 +7,9 @@ This is the [MSBuild SDK](https://docs.microsoft.com/en-us/visualstudio/msbuild/
 ## Requirements
 
 * [cmake](https://cmake.org)
+    * you should add path to `cmake` to "PATH" environment variable
 * [dotnet core sdk 2.1.300 or later](https://dotnet.microsoft.com/download)
+* build tools for C/C++
 
 ## Steps from scratch
 
@@ -21,8 +23,20 @@ This is the [MSBuild SDK](https://docs.microsoft.com/en-us/visualstudio/msbuild/
 ```
 3. execute `dotnet build [project file]`
     * if you want to get release build, `dotnet build -c Release [project file]`
+    * if you do not want to add cmake to PATH, `CMakeExe` property can be used
+        * property can be spcified by `dotnet build -p:CMakeExe=/path/to/cmake`
 
 Then you will get built binary in `/dir/to/project/builddir/[Configuration]/[Platform(default is 'any')]/[Configuration]`
+
+## from template
+
+if you want to create project from `dotnet new`, you can do it by installing templates for cmake project.
+
+1. do `dotnet new -i MSBuild.Sdk.CMake.Template.Library` to install library template
+2. do `dotnet new -i MSBuild.Sdk.CMake.Template.Console` to install console template
+3. do `dotnet new cmlib --name [project name]`, then cmake library project will be created
+4. do `dotnet new cmconsole --name [project name]`, then cmake console project will be created
+5. after project creation, you can build project by `dotnet build`
 
 ## configure only
 

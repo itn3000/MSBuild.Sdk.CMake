@@ -6,7 +6,7 @@ image:
   - Visual Studio 2017
   - Ubuntu1804
 install:
-  pwsh: dotnet tool install -g Cake.Tool --add-source https://api.nuget.org/v3/index.json
+  pwsh: dotnet tool install -g --add-source https://api.nuget.org/v3/index.json Cake.Tool
 build_script:
   pwsh: dotnet-cake .\build.cake --configuration=Release
 artifacts:

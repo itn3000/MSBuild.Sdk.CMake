@@ -12,7 +12,7 @@ build_script:
   pwsh: >-
     New-Item -ItemType Directory tools;
     Set-Location tools;
-    dotnet tool install --tool-path . --add-source https://api.nuget.org/v3/index.json Cake.Tool:
+    dotnet tool install --tool-path . --add-source https://api.nuget.org/v3/index.json Cake.Tool;
     Set-Location ..;
     ./tools/dotnet-cake ./build.cake --configuration=Release
 artifacts:

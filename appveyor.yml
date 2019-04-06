@@ -7,8 +7,10 @@ image:
   - Ubuntu1804
 install:
   pwsh: >-
-    dotnet --info
-    dotnet tool install --tool-path tools --add-source https://api.nuget.org/v3/index.json Cake.Tool
+    dotnet --info;
+    New-Item -ItemType Directory tools;
+    Set-Location tools;
+    dotnet tool install --tool-path . --add-source https://api.nuget.org/v3/index.json Cake.Tool
 build_script:
   pwsh: ./tools/dotnet-cake .\build.cake --configuration=Release
 artifacts:

@@ -15,7 +15,9 @@ Task("Build")
     .IsDependentOn("Restore")
     .Does(() =>
     {
-        DotNetCoreBuild("MSBuild.Sdk.CMake.slnproj");
+        var buildSettings = new DotNetCoreBuildSettings();
+        buildSettings.Configuration = configuration;
+        DotNetCoreBuild("MSBuild.Sdk.CMake.slnproj", buildSettings);
     });
 Task("Test")
     .IsDependentOn("Build")
@@ -25,8 +27,12 @@ Task("Test")
         {
             var regularProjectDir = DirectoryPath.FromString("tests").Combine(projectName);
             var projectFilePath = regularProjectDir.CombineWithFilePath($"{projectName}.cmproj");
-            DotNetCoreClean(projectFilePath.ToString());
-            DotNetCoreBuild(projectFilePath.ToString());
+            var cleanSettings = new DotNetCoreCleanSettings();
+            cleanSettings.Configuration = configuration;
+            DotNetCoreClean(projectFilePath.ToString(), cleanSettings);
+            var buildSettings = new DotNetCoreBuildSettings();
+            buildSettings.Configuration = configuration;
+            DotNetCoreBuild(projectFilePath.ToString(), buildSettings);
         }
     });
 Task("Pack")

@@ -1,7 +1,7 @@
 <Project>
   <Import Project="../../src/MSBuild.Sdk.CMake/Sdk/Sdk.props" />
   <PropertyGroup>
-      <CMakeSdkAssemblyFilePath>$([System.IO.Path]::Combine($(MSBuildThisFileDirectory),"..","..","src","MSBuild.Sdk.CMake","bin","Debug","netstandard2.0","MSBuild.Sdk.CMake.dll"))</CMakeSdkAssemblyFilePath>
+      <CMakeSdkAssemblyFilePath>$([System.IO.Path]::Combine($(MSBuildThisFileDirectory),"..","..","src","MSBuild.Sdk.CMake","bin",$(Configuration),"netstandard2.0","MSBuild.Sdk.CMake.dll"))</CMakeSdkAssemblyFilePath>
   </PropertyGroup>
   <Target Name="Msg">
     <Message Text="cmake build directory is $(CMakeBuildDirectory)"/>

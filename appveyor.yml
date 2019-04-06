@@ -8,11 +8,13 @@ image:
 install:
   pwsh: >-
     dotnet --info;
+build_script:
+  pwsh: >-
     New-Item -ItemType Directory tools;
     Set-Location tools;
-    dotnet tool install --tool-path . --add-source https://api.nuget.org/v3/index.json Cake.Tool
-build_script:
-  pwsh: "./tools/dotnet-cake ./build.cake --configuration=Release"
+    dotnet tool install --tool-path . --add-source https://api.nuget.org/v3/index.json Cake.Tool:
+    Set-Location ..;
+    ./tools/dotnet-cake ./build.cake --configuration=Release
 artifacts:
   - path: "nupkg/*.nupkg"
     name: NuGetPackages

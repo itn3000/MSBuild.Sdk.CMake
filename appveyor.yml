@@ -8,12 +8,13 @@ image:
 install:
   pwsh: >-
     dotnet --info;
+    New-Item -ItemType Directory tools;
+    Push-Location tools;
+    dotnet tool install --tool-path . Cake.Tool;
+    ./tools/dotnet-cake ./build.cake --target=Restore
+    Pop-Location ..;
 build_script:
   pwsh: >-
-    New-Item -ItemType Directory tools;
-    Set-Location tools;
-    dotnet tool install --tool-path . --add-source https://api.nuget.org/v3/index.json Cake.Tool;
-    Set-Location ..;
     ./tools/dotnet-cake ./build.cake --configuration=Release
 artifacts:
   - path: "nupkg/*.nupkg"
@@ -23,7 +24,7 @@ nuget:
 deploy:
 - provider: NuGet
   api_key:
-    secure: +X6X8wXYoeSk6FdqmxnFHfcq9XI0rjvX+LHDoW6pd+Xf7X7GqpEovk6lTLt5fRFZ
+    secure: USf9BzS6bwVyBeXQOpFwez/24oGlRysyysWC4WTFHGeIkmcUdcTs3HM2E4CSDxiI
   on:
     APPVEYOR_REPO_TAG: true
     branch: master

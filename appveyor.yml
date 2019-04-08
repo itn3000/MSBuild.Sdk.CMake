@@ -11,8 +11,8 @@ install:
     New-Item -ItemType Directory tools;
     Push-Location tools;
     dotnet tool install --tool-path . Cake.Tool;
+    Pop-Location;
     ./tools/dotnet-cake ./build.cake --target=Restore
-    Pop-Location ..;
 build_script:
   pwsh: >-
     ./tools/dotnet-cake ./build.cake --configuration=Release

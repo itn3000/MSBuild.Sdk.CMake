@@ -22,8 +22,6 @@ This is the [MSBuild SDK](https://docs.microsoft.com/en-us/visualstudio/msbuild/
 
 ## Steps from scratch
 
-**Warning:the nuget package has not been released yet**
-
 1. [creating initial cmake project](https://cmake.org/cmake-tutorial/)
 2. create msbuild project file like following next to CMakeLists.txt
 ```xml

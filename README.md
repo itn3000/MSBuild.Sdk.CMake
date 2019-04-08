@@ -4,6 +4,12 @@
 
 This is the [MSBuild SDK](https://docs.microsoft.com/en-us/visualstudio/msbuild/how-to-use-project-sdk?view=vs-2019) which does configure,build,and other task for [CMake](https://cmake.org) project.
 
+## packages
+
+* [MSBuild.Sdk.CMake](https://www.nuget.org/packages/MSBuild.Sdk.CMake/)
+* [MSBUild.Sdk.CMake.Template.Console](https://www.nuget.org/packages/MSBuild.Sdk.CMake.Template.Console/)
+* [MSBUild.Sdk.CMake.Template.Library](https://www.nuget.org/packages/MSBuild.Sdk.CMake.Template.Library/)
+
 # How to use
 
 ## Requirements

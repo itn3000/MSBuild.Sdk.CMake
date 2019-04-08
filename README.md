@@ -18,6 +18,7 @@ This is the [MSBuild SDK](https://docs.microsoft.com/en-us/visualstudio/msbuild/
     * you should add path to `cmake` to "PATH" environment variable
 * [dotnet core sdk 2.1.300 or later](https://dotnet.microsoft.com/download)
 * build tools for C/C++
+    * **Depends on CMake**
 
 ## Steps from scratch
 

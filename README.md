@@ -110,3 +110,43 @@ build configuration, default using msbuild's `$(Configuration)` value
 ### CMakeInstallPrefix
 
 the value passed as CMAKE_INSTALL_PREFIX when configure task.
+
+## Supported Targets
+
+### Configure
+
+do cmake configure task(`cd $(CMakeBuildRootDirectory) && cmake $(CMakeRootDirectory)`)
+
+### Build
+
+do cmake's default build target.
+depends on `Congiure` task.
+
+### BuildClean
+
+do cmake's `clean` target.
+This task will be skipped if `Configure` task is not executed.
+
+### ConfigClean
+
+delete `$(CMakeBuildDirectory)/CMakeCache.txt`.
+
+### Clean
+
+do `BuildClean` and `ConfigClean`
+
+### Rebuild
+
+do `Clean` and `Build`
+
+### AllClean
+
+delete `$(CMakeBuildRootDirectory)`
+
+### ExecuteTarget
+
+do custom cmake target.
+
+### Install
+
+do cmake `install` target

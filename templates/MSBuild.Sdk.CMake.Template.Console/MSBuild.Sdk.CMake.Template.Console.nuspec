@@ -3,8 +3,8 @@
   <metadata>
     <id>MSBuild.Sdk.CMake.Template.Console</id>
     <version>0.1.0</version>
-    <authors>yusuke</authors>
-    <owners>yusuke</owners>
+    <authors>itn3000</authors>
+    <owners>itn3000</owners>
     <projectUrl>http://github.com/itn3000/MSBuild.Sdk.CMake</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>ConsoleApp Template package for MSBuild.Sdk.CMake</description>

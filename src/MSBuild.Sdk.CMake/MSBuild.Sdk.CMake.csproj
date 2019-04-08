@@ -4,6 +4,15 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <VersionPrefix>0.1.0</VersionPrefix>
     <PackageOutputPath Condition="'$(PackageOutputPath)' == ''">../../nupkg</PackageOutputPath>
+    <PackageId>MSBuild.Sdk.CMake</PackageId>
+    <PackageProjectUrl>https://github.com/itn3000/MSBuild.Sdk.CMake</PackageProjectUrl>
+    <Description>msbuild SDK for cmake task</Description>
+    <PackageTags>msbuild sdk cmake</PackageTags>
+    <Authors>itn3000</Authors>
+    <Copyright>Copytright(C) 2019 itn3000</Copyright>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageType>MSBuildSdk</PackageType>
+    <PackageRequireAcceptance>false</PackageRequireAcceptance>
   </PropertyGroup>
 
   <ItemGroup>
